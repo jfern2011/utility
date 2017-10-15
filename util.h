@@ -108,7 +108,7 @@ namespace Util
      *
      **********************************************************************
      */
-    bool dirExists(const std::string& dir)
+    inline bool dirExists(const std::string& dir)
     {
         struct stat info;
 
@@ -125,7 +125,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	bool ends_with(const std::string& str, const std::string& suffix)
+	inline bool ends_with(const std::string& str,const std::string& suffix)
 	{
 		size_t start = str.size() - suffix.size();
 		return str.size() >= suffix.size() &&
@@ -144,7 +144,7 @@ namespace Util
      *
      **********************************************************************
      */
-	int64 file_size(const std::string& dir)
+	inline int64 file_size(const std::string& dir)
 	{
 		struct stat st;
 		AbortIf(stat(dir.c_str(), &st) == -1 || S_ISDIR(st.st_mode), -1);
@@ -251,6 +251,28 @@ namespace Util
 		}
 
 		return true;
+	}
+
+	/**
+	 **********************************************************************
+	 *
+	 * Generate a pseudo-random 64-bit unsigned integer
+	 *
+	 * @return A random 64-bit integer
+	 *
+	 **********************************************************************
+	 */
+	inline uint64 rand64()
+	{
+		uint64 n1 = std::rand() & 0xFFFF;
+		uint64 n2 = std::rand() & 0xFFFF;
+		uint64 n3 = std::rand() & 0xFFFF;
+		uint64 n4 = std::rand() & 0xFFFF;
+
+		return (n1 << 48) |
+			   (n2 << 32) |
+			   (n3 << 16) |
+			   (n4 << 0 );
 	}
 
 	/**
@@ -491,6 +513,24 @@ namespace Util
 
 		return
 			str.substr(start,stop-start+1);
+	}
+
+	/**
+	 **********************************************************************
+	 *
+	 * Swap two data elements using the classic XOR swap algorithm
+	 *
+	 * @param[out] a The 1st element
+	 * @param[out] b The 2nd element
+	 *
+	 **********************************************************************
+	 */
+	template <typename T>
+	inline void xor_swap(T& a, T& b)
+	{
+		a = a ^ b;
+		b = a ^ b;
+		a = a ^ b;
 	}
 }
 
