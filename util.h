@@ -1,3 +1,11 @@
+/**
+ *  \file   util.h
+ *  \author Jason Fernandez
+ *  \date   10/18/2017
+ *
+ *  https://github.com/jfern2011/util
+ */
+
 #ifndef __UTIL__
 #define __UTIL__
 
