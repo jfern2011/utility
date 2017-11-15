@@ -9,6 +9,8 @@
 #ifndef __UTIL__
 #define __UTIL__
 
+#include <ctsdlib>
+
 #include <sys/stat.h>
 
 #include <string>
@@ -32,7 +34,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	template<typename T> static int bitCount(T word)
+	template<typename T> inline int bitCount(T word)
 	{
 		int count = 0;
 
@@ -56,7 +58,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static std::string build_string(const str_v& tokens,
+	inline std::string build_string(const str_v& tokens,
 					const std::string& sep = "")
 	{
 		std::string out = "";
@@ -193,7 +195,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	template<typename T> static int getLSB(T word)
+	template<typename T> inline int getLSB(T word)
 	{
 		int bit = 0;
 		T mask = 1;
@@ -220,7 +222,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	template<typename T> static int getMSB(T word)
+	template<typename T> inline int getMSB(T word)
 	{
 		int bit = (8 * sizeof(T) - 1 );
 		T mask = ((T)1) << bit;
@@ -246,7 +248,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	template<typename T> static bool getSetBits(T word, uint32_v& indexes)
+	template<typename T> inline bool getSetBits(T word, uint32_v& indexes)
 	{
 		AbortIfNot(indexes.empty(), false);
 
@@ -310,7 +312,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static void split(const std::string& str, str_v& tokens, char delim=' ')
+	inline void split(const std::string& str, str_v& tokens, char delim=' ')
 	{
 		std::string line = str;
 		size_t ind, start = 0;
@@ -344,7 +346,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static void split(
+	inline void split(
 		const std::string& str, str_v& tokens, const std::string& delim)
 	{
 		std::string line = str;
@@ -380,7 +382,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static void split(const std::string& str,
+	inline void split(const std::string& str,
 		              str_v& tokens, size_t size)
 	{
 
@@ -412,7 +414,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static int32 str_to_int32(const std::string& str, int base)
+	inline int32 str_to_int32(const std::string& str, int base)
 	{
 		long int i = strtol(str.c_str(), NULL, base);
 		AbortIf(errno == ERANGE, 0);
@@ -438,7 +440,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static char to_lower(char c)
+	inline char to_lower(char c)
 	{
 		if (c >= 65 && c <= 90)
 			c += 32;
@@ -457,7 +459,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static std::string to_lower(const std::string& str)
+	inline std::string to_lower(const std::string& str)
 	{
 		std::string res = str;
 		for (size_t i = 0; i < str.size(); i++)
@@ -484,7 +486,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static char to_upper(char c)
+	inline char to_upper(char c)
 	{
 		if (c >= 97 && c <= 122)
 			c -= 32;
@@ -505,7 +507,7 @@ namespace Util
 	 *
 	 **********************************************************************
 	 */
-	static std::string trim(const std::string& str)
+	inline std::string trim(const std::string& str)
 	{
 		if (str.empty()) return str;
 
