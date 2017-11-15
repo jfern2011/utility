@@ -9,7 +9,7 @@
 #ifndef __UTIL__
 #define __UTIL__
 
-#include <ctsdlib>
+#include <cstdlib>
 
 #include <sys/stat.h>
 
