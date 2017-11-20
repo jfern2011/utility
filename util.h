@@ -404,22 +404,42 @@ namespace Util
 	/**
 	 **********************************************************************
 	 *
-	 * Get the integer representation of a string
+	 * Get the double representation of a string
 	 *
-	 * @param [in] str  The string to convert
-	 * @param [in] base Radix (see strtol())
+	 * @param [in]  str  The string to convert
+	 * @param [out] out  The result
 	 *
-	 * @return The signed integer representing the given string. On error,
-	 *         returns 0
+	 * @return True on success, or false on errno
 	 *
 	 **********************************************************************
 	 */
-	inline int32 str_to_int32(const std::string& str, int base)
+	inline bool str_to_f64(const std::string& str, double& out)
 	{
-		long int i = strtol(str.c_str(), NULL, base);
-		AbortIf(errno == ERANGE, 0);
-		AbortIf( i < MIN_INT32 || i > MAX_INT32, 0 );
-		return (int32)i;
+		if (errno) errno = 0;
+		out = std::strtod(str.c_str(), NULL);
+		
+		return errno == 0;
+	}
+
+	/**
+	 **********************************************************************
+	 *
+	 * Get the integer representation of a string
+	 *
+	 * @param [in]  str  The string to convert
+	 * @param [in]  base Radix (see strtol())
+	 * @param [out] out  The result
+	 *
+	 * @return True on success, or false on errno
+	 *
+	 **********************************************************************
+	 */
+	inline bool str_to_i32(const std::string& str, int base, int& out)
+	{
+		if (errno) errno = 0;
+		out = std::strtol(str.c_str(), NULL, base);
+		
+		return errno == 0;
 	}
 
 	/**
