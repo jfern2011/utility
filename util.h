@@ -21,6 +21,261 @@
 
 namespace Util
 {
+	/**
+	 * A traits class that determines whether the given type is
+	 * a C++ boolean
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_bool
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template<>
+	struct is_bool<bool>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a C++ char
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_char
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_char<char>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a signed 16-bit integer
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_int16
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_int16<short>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a signed 32-bit integer
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_int32
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_int32<int>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a signed 64-bit integer
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_int64
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_int64<long long>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a C++ unsigned char
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_uchar
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_uchar<unsigned char>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * an unsigned 16-bit integer
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_uint16
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_uint16<unsigned short>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * an unsigned 32-bit integer
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_uint32
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_uint32<unsigned int>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * an unsigned 64-bit integer
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_uint64
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template <>
+	struct is_uint64<unsigned long long>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a C++ float
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_float
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template<>
+	struct is_float<float>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a C++ double
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_double
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template<>
+	struct is_double<double>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A traits class that determines whether the given type is
+	 * a std::string
+	 *
+	 * @tparam The data type
+	 */
+	template <typename T>
+	struct is_string
+	{
+		/**
+		 * True or false
+		 */
+	    static const bool value = false;
+	};
+
+	template<>
+	struct is_string<std::string>
+	{
+	    static const bool value = true;
+	};
+
+	/**
+	 * A vector of strings
+	 */
 	typedef std::vector<std::string> str_v;
 
 	/**
