@@ -700,6 +700,155 @@ namespace Util
 	/**
 	 **********************************************************************
 	 *
+	 * Get the string representation of a value. This operates on only
+	 * fundamental C++ types
+	 *
+	 * @tparam T The type of \a val
+
+	 * @param[in]  val The value to convert
+	 * @param[out] str The string representation of \a val
+	 *
+	 * @return True on success
+	 *
+	 **********************************************************************
+	 */
+	template <typename T>
+	bool to_string(const T& val, std::string& str)
+	{
+		return false;
+	}
+
+	template <>
+	inline bool to_string<bool>(const bool& val, std::string& str)
+	{
+		str = val ? "true" : "false";
+		return true;
+	}
+
+	template <>
+	inline bool to_string<char>(const char& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%c", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<int16>(const int16& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%d", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<int32>(const int32& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%d", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<int64>(const int64& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%lld", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<unsigned char>(const unsigned char& val,
+										 std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%hhu", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<uint16>(const uint16& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%u", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<uint32>(const uint32& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%u", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<uint64>(const uint64& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%llu", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<float>(const float& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%f", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<double>(const double& val, std::string& str)
+	{
+		char buf[64];
+
+		if (std::snprintf(buf, 64, "%f", val) < 0)
+			return false;
+
+		str = std::string(buf);
+		return true;
+	}
+
+	/**
+	 **********************************************************************
+	 *
 	 * @brief
 	 * Convert a character to lower case. Only when using the default C
 	 * locale is this equivalent to ::tolower()
