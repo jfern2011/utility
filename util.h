@@ -540,6 +540,14 @@ namespace Util
 		return (errno == 0);
 	}
 
+	template<>
+	inline bool from_string<std::string>(const std::string& str,
+		std::string& val)
+	{
+		val = str;
+		return true;
+	}
+
 	/**
 	 **********************************************************************
 	 *
@@ -965,6 +973,14 @@ namespace Util
 			return false;
 
 		str = std::string(buf);
+		return true;
+	}
+
+	template <>
+	inline bool to_string<std::string>(const std::string& val,
+		std::string& str)
+	{
+		str = val;
 		return true;
 	}
 
