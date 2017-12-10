@@ -418,6 +418,128 @@ namespace Util
 			st.st_size;
 	}
 
+	/*
+	 * Forward declarations:
+	 */
+	std::string to_lower(const std::string& str);
+	std::string trim(const std::string& str);
+
+	/**
+	 **********************************************************************
+	 *
+	 * Convert from a std::string back to a C++ basic data type
+	 *
+	 * @tparam The C++ data type
+	 *
+	 * @param[in]  str The string to convert
+	 * @param[out] val The value represented by \a str
+	 *
+	 * @return True on success
+	 *
+	 **********************************************************************
+	 */
+	template <typename T>
+	bool from_string(const std::string& str, T& val)
+	{
+		return false;
+	}
+
+	template<>
+	inline bool from_string<bool>(const std::string& str, bool& val)
+	{
+		const std::string temp = trim(to_lower(str));
+
+		if (temp == "false" || temp == "0")
+			val = false;
+		else if (temp == "true" || temp == "1")
+			val = true;
+		else
+			return false;
+
+		return true;
+	}
+
+	template<>
+	inline bool from_string<char>(const std::string& str, char& val)
+	{
+		if (str.empty())
+			return false;
+		else
+			val = str[0];
+
+		return true;
+	}
+
+	template<>
+	inline bool from_string<int16>(const std::string& str, int16& val)
+	{
+		int temp, ans = 
+			std::sscanf(str.c_str(), "%d", &temp) == 1;
+
+		val = temp;
+			return(ans == 1);
+	}
+
+	template<>
+	inline bool from_string<int32>(const std::string& str, int32& val)
+	{
+		return std::sscanf( str.c_str(), "%d", &val ) == 1;
+	}
+
+	template<>
+	inline bool from_string<int64>(const std::string& str, int64& val)
+	{
+		return std::sscanf(str.c_str(), "%lld", &val) == 1;
+	}
+
+	template<>
+	inline bool from_string<unsigned char>(const std::string& str,
+		unsigned char& val)
+	{
+		return std::sscanf(str.c_str(), "%hhu", &val) == 1;
+	}
+
+	template<>
+	inline bool from_string<uint16>(const std::string& str, uint16& val)
+	{
+		unsigned int temp;
+		int ans = 
+			std::sscanf(str.c_str(), "%u", &temp) == 1;
+
+		val = temp;
+			return(ans == 1);
+	}
+
+	template<>
+	inline bool from_string<uint32>(const std::string& str, uint32& val)
+	{
+		return std::sscanf( str.c_str(), "%u", &val ) == 1;
+	}
+
+	template<>
+	inline bool from_string<uint64>(const std::string& str, uint64& val)
+	{
+		return std::sscanf(str.c_str(), "%llu", &val) == 1;
+	}
+
+	template<>
+	inline bool from_string<float>(const std::string& str, float& val)
+	{
+		errno = 0;
+		val = std::strtof(str.c_str(), nullptr);
+		
+		return (errno == 0);
+	}
+
+	template<>
+	inline bool from_string<double>(const std::string& str, double& val)
+	{
+		errno = 0;
+		val = std::strtod(str.c_str(), nullptr);
+		
+		return (errno == 0);
+	}
+
 	/**
 	 **********************************************************************
 	 *
