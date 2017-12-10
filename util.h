@@ -462,10 +462,12 @@ namespace Util
 	template<>
 	inline bool from_string<char>(const std::string& str, char& val)
 	{
-		if (str.empty())
+		const std::string _str = trim(str);
+
+		if (_str.empty())
 			return false;
 		else
-			val = str[0];
+			val = _str[0];
 
 		return true;
 	}
