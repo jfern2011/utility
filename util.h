@@ -832,6 +832,25 @@ namespace Util
 	/**
 	 **********************************************************************
 	 *
+	 * Swap two generic data items
+	 *
+	 * @tparam T The item type
+	 *
+	 * @param[in,out] val1 Item 1
+	 * @param[in,out] val2 Item 2
+	 *
+	 **********************************************************************
+	 */
+	template <typename T>
+	inline void swap(T& val1, T& val2)
+	{
+		T temp = val1; val1 = val2;
+		val2 = temp;
+	}
+
+	/**
+	 **********************************************************************
+	 *
 	 * Get the string representation of a value. This operates on only
 	 * fundamental C++ types
 	 *
