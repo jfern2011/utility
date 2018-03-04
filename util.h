@@ -324,7 +324,7 @@ namespace Util
 			out += tokens[i] + sep;
 		}
 
-		if (sep != "")
+		if (sep != "" && out.size() > sep.size())
 		{
 			return
 				out.substr(0,out.size() - sep.size());
