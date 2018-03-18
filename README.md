@@ -4,4 +4,4 @@ Utilities used for other projects
 ## Usage
 
 Include any of the enclosed headers. The Doxygen documentation lists
-the functions in each header
+the functions available in each.
