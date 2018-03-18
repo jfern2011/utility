@@ -21,25 +21,25 @@
  */
 #define _warn_overflow_(index, max)                                  \
 {                                                                    \
-	if (max <= index)                                                \
-	{                                                                \
-		void* buffer[1024];                                          \
-		int nptrs = ::backtrace(buffer, 1024 );                      \
+    if (max <= index)                                                \
+    {                                                                \
+        void* buffer[1024];                                          \
+        int nptrs = ::backtrace(buffer, 1024 );                      \
                                                                      \
-		char** strings =                                             \
-			::backtrace_symbols(buffer, nptrs);                      \
+        char** strings =                                             \
+            ::backtrace_symbols(buffer, nptrs);                      \
                                                                      \
-		std::printf("%s:%d [warning]: index = %u, size is %d\n",     \
-					__FILE__, __LINE__, index, max );                \
-		                                                             \
-		if (strings != nullptr)                                      \
-		{                                                            \
-			for (int j = 0; j < nptrs; j++)                          \
-        		std::printf("[%d] %s\n", nptrs-j-1, strings[j]);     \
-        	std::free(strings);                                      \
-		}                                                            \
-		std::fflush(stdout);                                         \
-	}                                                                \
+        std::printf("%s:%d [warning]: index = %u, size is %d\n",     \
+                    __FILE__, __LINE__, index, max );                \
+                                                                     \
+        if (strings != nullptr)                                      \
+        {                                                            \
+            for (int j = 0; j < nptrs; j++)                          \
+                std::printf("[%d] %s\n", nptrs-j-1, strings[j]);     \
+            std::free(strings);                                      \
+        }                                                            \
+        std::fflush(stdout);                                         \
+    }                                                                \
 }
 
 /**
