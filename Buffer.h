@@ -9,38 +9,11 @@
 #ifndef __BUFFER_H__
 #define __BUFFER_H__
 
+#include <cstddef>
 #include <cstdlib>
 #include <cstdio>
-#include <execinfo.h>
 
-/**
- * @def _warn_overflow_(index, max)
- *
- * Warns the user of a buffer overflow and prints a stack trace of
- * the error (may require the -rdynamic linker option)
- */
-#define _warn_overflow_(index, max)                                  \
-{                                                                    \
-    if (max <= index)                                                \
-    {                                                                \
-        void* buffer[1024];                                          \
-        int nptrs = ::backtrace(buffer, 1024 );                      \
-                                                                     \
-        char** strings =                                             \
-            ::backtrace_symbols(buffer, nptrs);                      \
-                                                                     \
-        std::printf("%s:%d [warning]: index = %u, size is %d\n",     \
-                    __FILE__, __LINE__, index, max );                \
-                                                                     \
-        if (strings != nullptr)                                      \
-        {                                                            \
-            for (int j = 0; j < nptrs; j++)                          \
-                std::printf("[%d] %s\n", nptrs-j-1, strings[j]);     \
-            std::free(strings);                                      \
-        }                                                            \
-        std::fflush(stdout);                                         \
-    }                                                                \
-}
+#include "abort.h"
 
 /**
  **********************************************************************
@@ -56,7 +29,7 @@
  *
  **********************************************************************
  */
-template <typename T, int N1, int... N2>
+template <typename T, size_t N1, size_t... N2>
 class Buffer
 {
 	static_assert(N1 > 0, "Dimensions must be greater than zero.");
@@ -83,9 +56,9 @@ public:
 	 *
 	 * @return The element at \a index
 	 */
-	inline Buffer<T,N2...>& operator[](int index)
+	Buffer<T,N2...>& operator[](size_t index)
 	{
-		_warn_overflow_(index, N1);
+		AbortIf(N1 <= index, data[index]);
 		return data[index];
 	}
 
@@ -101,10 +74,9 @@ public:
 	 *
 	 * @return A *const* reference to the element at \a index
 	 */
-	inline const
-	Buffer<T,N2...>& operator[](int index) const
+	const Buffer<T,N2...>& operator[](size_t index) const
 	{
-		_warn_overflow_(index, N1);
+		AbortIf(N1 <= index, data[index]);
 		return data[index];
 	}
 
@@ -119,14 +91,14 @@ private:
  * A wrapper for a simple C++ array. Aside from behaving like a normal
  * array, this performs bounds checking to make it easier to catch
  * buffer overflows at runtime. The implementation is kept simple with
- * the goal of matching the runtime performance of raw arrays
+ * the goal of matching runtime performance with raw arrays
  *
  * @tparam T The type of each buffer element
  * @tparam N The number of elements
  *
  **********************************************************************
  */
-template <typename T, int N>
+template <typename T, size_t N>
 class Buffer<T,N>
 {
 	static_assert(N > 0, "Buffer must contain at least 1 item.");
@@ -156,9 +128,9 @@ public:
 	 *
 	 * @return The element at \a index
 	 */
-	inline T& at(int index)
+	T& at(size_t index)
 	{
-		_warn_overflow_(index, N);
+		AbortIf(N <= index, data[index]);
 		return data[index];
 	}
 
@@ -171,9 +143,9 @@ public:
 	 *
 	 * @return The element at \a index
 	 */
-	inline T& operator[](int index)
+	T& operator[](size_t index)
 	{
-		_warn_overflow_(index, N);
+		AbortIf(N <= index, data[index]);
 		return data[index];
 	}
 
@@ -186,9 +158,9 @@ public:
 	 *
 	 * @return The element at \a index
 	 */
-	inline const T& operator[](int index) const
+	const T& operator[](size_t index) const
 	{
-		_warn_overflow_(index, N);
+		AbortIf(N <= index, data[index]);
 		return data[index];
 	}
 
@@ -197,7 +169,7 @@ public:
 	 *
 	 * @return The first element in this Buffer
 	 */
-	inline T& operator*()
+	T& operator*()
 	{
 		return data[0];
 	}
@@ -208,7 +180,7 @@ public:
 	 *
 	 * @return A pointer to the data
 	 */
-	inline operator T*()
+	operator T*()
 	{
 		return data;
 	}
@@ -219,7 +191,7 @@ public:
 	 *
 	 * @return A const pointer to the data
 	 */
-	inline operator const T*() const
+	operator const T*() const
 	{
 		return data;
 	}
@@ -232,9 +204,9 @@ public:
 	 * @return  A pointer to the address at offset \a offset from the
 	 *          buffer start, or nullptr on error
 	 */
-	inline T* operator+(int offset)
+	T* operator+(size_t offset)
 	{
-		_warn_overflow_(offset, N);
+		AbortIf(N <= offset, nullptr);
 		return data + offset;
 	}
 
