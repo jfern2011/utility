@@ -10,8 +10,7 @@
 #define __BUFFER_H__
 
 #include <cstddef>
-#include <cstdlib>
-#include <cstdio>
+#include <cstring>
 
 #include "abort.h"
 
@@ -208,6 +207,14 @@ public:
 	{
 		AbortIf(N <= offset, nullptr);
 		return data + offset;
+	}
+
+	/**
+	 * Sets all elements in the buffer to zero
+	 */
+	void zero()
+	{
+		std::memset( data, 0, N * sizeof(T) );
 	}
 
 private:

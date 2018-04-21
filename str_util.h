@@ -9,13 +9,23 @@
 #ifndef __STR_UTIL_H__
 #define __STR_UTIL_H__
 
+#include <cinttypes>
 #include <cfloat>
 #include <string>
+#include <cstdint>
 #include <vector>
 #include <cstdlib>
 
 namespace Util
 {
+	using uint64 = std::uint64_t;
+	using int64  = std::int64_t;
+	using uint32 = std::uint32_t;
+	using int32  = std::int32_t;
+	using uint16 = std::uint16_t;
+	using int16  = std::int16_t;
+	using uint8  = std::uint8_t;
+
 	/*
 	 * Forward declarations
 	 */
@@ -136,92 +146,92 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ short specialization of \ref from_string()
+	 * Signed 16-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<>
-	inline bool from_string(const std::string& str, short& val)
+	inline bool from_string(const std::string& str, int16& val)
 	{
-		return std::sscanf(str.c_str(), "%hd", &val) == 1;
+		return std::sscanf(str.c_str(), "%" SCNi16, &val) == 1;
 	}
 
 	/**
 	 ******************************************************************
 	 *
-	 * C++ int specialization of \ref from_string()
+	 * Signed 32-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<>
-	inline bool from_string(const std::string& str, int& val)
+	inline bool from_string(const std::string& str, int32& val)
 	{
-		return std::sscanf(str.c_str(), "%d", &val ) == 1;
+		return std::sscanf(str.c_str(), "%" SCNi32, &val) == 1;
 	}
 
 	/**
 	 ******************************************************************
 	 *
-	 * C++ long long specialization of \ref from_string()
+	 * Signed 64-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<> inline
-	bool from_string(const std::string& str, long long& val)
+	bool from_string(const std::string& str, int64& val)
 	{
-		return std::sscanf(str.c_str(), "%lld", &val) == 1;
+		return std::sscanf(str.c_str(), "%" SCNi64, &val) == 1;
 	}
 
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned char specialization of \ref from_string()
+	 * Unsigned 8-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<> inline
-	bool from_string(const std::string& str, unsigned char& val)
+	bool from_string(const std::string& str, uint8& val)
 	{
-		return std::sscanf(str.c_str(), "%hhu", &val) == 1;
+		return std::sscanf(str.c_str(), "%" SCNu8, &val ) == 1;
 	}
 
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned short specialization of \ref from_string()
+	 * Unsigned 16-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<> inline
-	bool from_string(const std::string& str, unsigned short& val)
+	bool from_string(const std::string& str, uint16& val)
 	{
-		return std::sscanf(str.c_str(), "%hu", &val) == 1;
+		return std::sscanf(str.c_str(), "%" SCNu16, &val) == 1;
 	}
 
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned int specialization of \ref from_string()
+	 * Unsigned 32-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<> inline
-	bool from_string(const std::string& str, unsigned int& val)
+	bool from_string(const std::string& str, uint32& val)
 	{
-		return std::sscanf( str.c_str(), "%u", &val ) == 1;
+		return std::sscanf(str.c_str(), "%" SCNu32, &val) == 1;
 	}
 
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned long long specialization of \ref from_string()
+	 * Unsigned 64-bit specialization of \ref from_string()
 	 *
 	 ******************************************************************
 	 */
 	template<> inline
-	bool from_string(const std::string& str, unsigned long long& val)
+	bool from_string(const std::string& str, uint64& val)
 	{
-		return std::sscanf(str.c_str(), "%llu", &val) == 1;
+		return std::sscanf(str.c_str(), "%" SCNu64, &val) == 1;
 	}
 
 	/**
@@ -444,16 +454,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ short specialization of \ref to_string()
+	 * Signed 16-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <>
-	inline bool to_string(const short& val, std::string& str)
+	inline bool to_string(const int16& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%hd", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRId16, val) < 0)
 			return false;
 
 		str = std::string(buf);
@@ -463,16 +473,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ int specialization of \ref to_string()
+	 * Signed 32-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <>
-	inline bool to_string(const int& val, std::string& str)
+	inline bool to_string(const int32& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%d", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRId32, val) < 0)
 			return false;
 
 		str = std::string(buf);
@@ -482,16 +492,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ long long specialization of \ref to_string()
+	 * Signed 64-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <> inline
-	bool to_string(const long long& val, std::string& str)
+	bool to_string(const int64& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%lld", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRId64, val) < 0)
 			return false;
 
 		str = std::string(buf);
@@ -501,16 +511,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned char specialization of \ref to_string()
+	 * Unsigned 8-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <>
-	inline bool to_string(const unsigned char& val, std::string& str)
+	inline bool to_string(const uint8& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%hhu", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRIu8, val) < 0)
 			return false;
 
 		str = std::string(buf);
@@ -520,16 +530,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned short specialization of \ref to_string()
+	 * Unsigned 16-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <>
-	inline bool to_string(const unsigned short& val, std::string& str)
+	inline bool to_string(const uint16& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%hu", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRIu16, val) < 0)
 			return false;
 
 		str = std::string(buf);
@@ -539,16 +549,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned int specialization of \ref to_string()
+	 * Unsigned 32-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <>
-	inline bool to_string(const unsigned int& val, std::string& str)
+	inline bool to_string(const uint32& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%u", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRIu32, val) < 0)
 			return false;
 
 		str = std::string(buf);
@@ -558,16 +568,16 @@ namespace Util
 	/**
 	 ******************************************************************
 	 *
-	 * C++ unsigned long long specialization of \ref to_string()
+	 * Unsigned 64-bit specialization of \ref to_string()
 	 *
 	 ******************************************************************
 	 */
 	template <> inline
-	bool to_string(const unsigned long long& val, std::string& str)
+	bool to_string(const uint64& val, std::string& str)
 	{
 		char buf[64];
 
-		if (std::snprintf(buf, 64, "%llu", val) < 0)
+		if (std::snprintf(buf, 64, "%" PRIu64, val) < 0)
 			return false;
 
 		str = std::string(buf);
