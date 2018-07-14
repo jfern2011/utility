@@ -35,10 +35,23 @@ class Buffer
 
 public:
 
+	/**
+	 * Default constructor
+	 */
 	Buffer()
 	{
 	}
 
+	/**
+	 * Constructor
+	 *
+	 * @param[in] src Initialize with these elements. See \ref fill()
+	 */
+	Buffer(const T* src) { fill(src); }
+
+	/**
+	 * Destructor
+	 */
 	~Buffer()
 	{
 	}
@@ -77,6 +90,36 @@ public:
 	{
 		AbortIf(N1 <= index, data[index]);
 		return data[index];
+	}
+
+	/**
+	 * Fill in this buffer with elements from \a src
+	 *
+	 * @param[in] src Buffer from which to copy. Copying is performed
+	 *                element-wise. For example, if A is a 2x2x2
+	 *                array, then the first element is copied to
+	 *                A[0][0][0], the second to A[0][0][1], the third
+	 *                to A[0][1][0], and so on
+	 */
+	void fill(const T* src)
+	{
+		const size_t offset = data[0].size();
+
+		for (size_t i = 0; i < N1; i++)
+		{
+			const T* _src = &src[ i*offset ];
+			data[i].fill(_src);
+		}
+	}
+
+	/**
+	 * Get the total number of elements in the buffer
+	 *
+	 * @return The number of elements
+	 */
+	size_t size()
+	{
+		return N1 * data[0].size();
 	}
 
 private:
@@ -210,11 +253,30 @@ public:
 	}
 
 	/**
-	 * Sets all elements in the buffer to zero
+	 * Fill in this buffer with elements from \a src, copying exactly
+	 * N elements
+	 *
+	 * @param[in] src Buffer from which to copy
+	 */
+	void fill(const T* src)
+	{
+		std::memcpy(data, src, N * sizeof(T));
+	}
+
+	/**
+	 * Get the number of elements in the buffer
+	 *
+	 * @return The number of elements
+	 */
+	size_t size() { return N; }
+
+	/**
+	 * Sets all elements in this buffer to zero
 	 */
 	void zero()
 	{
-		std::memset( data, 0, N * sizeof(T) );
+		std::memset(
+			data, 0, N * sizeof(T) );
 	}
 
 private:
