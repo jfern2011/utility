@@ -29,8 +29,8 @@ namespace Util
 	/*
 	 * Forward declarations
 	 */
-	std::string trim(const std::string& str);
 	std::string to_lower(const std::string& str);
+	std::string trim(const std::string& str);
 
 	/**
 	 ******************************************************************
@@ -295,29 +295,25 @@ namespace Util
 					  std::vector<std::string>& tokens,
 					  const std::string& delim=" ")
 	{
-		size_t ind, start = 0;
 		const std::string line = str;
 
 		tokens.clear();
 
 		if (delim.empty()){ return; }
 
-		while (true)
+		size_t ind, start = 0;
+		while ((ind= line.find(delim, start)) != std::string::npos)
 		{
-			if ((ind = line.find(delim, start)) != std::string::npos)
-			{
-				if (ind - start > 0)
-					tokens.push_back(line.substr(start, ind - start));
-				start = ind + delim.size();
-			}
-			else
-			{
-				if (start < line.size())
-					tokens.push_back(line.substr(start,
-						std::string::npos));
-				break;
-			}
+			if (ind - start > 0)
+				tokens.push_back (line.substr(start, ind - start));
+			start = ind + delim.size();
 		}
+
+		/* Final token */
+
+		if (start < line.size())
+			tokens.push_back(line.substr(start,
+				std::string::npos));
 	}
 
 	/**
