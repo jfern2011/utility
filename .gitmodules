@@ -1,0 +1,3 @@
+[submodule "abort"]
+	path = abort
+	url = https://github.com/jfern2011/abort.git
