@@ -634,11 +634,10 @@ namespace Util
     /**
      ******************************************************************
      *
-     * C string specialization of \ref to_string()
+     * C string overload of \ref to_string()
      *
      ******************************************************************
      */
-    template <>
     inline bool to_string(const char* val, std::string& str)
     {
         str = val; return true;
