@@ -634,6 +634,19 @@ namespace Util
     /**
      ******************************************************************
      *
+     * C string specialization of \ref to_string()
+     *
+     ******************************************************************
+     */
+    template <>
+    inline bool to_string(const char* val, std::string& str)
+    {
+        str = val; return true;
+    }
+
+    /**
+     ******************************************************************
+     *
      * @brief
      * Convert a character to upper case. Only when using the default C
      * locale is this equivalent to std::toupper()
