@@ -30,6 +30,10 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
                  ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
                  EXCLUDE_FROM_ALL)
 
+# -----------------------------------------------------------------------------
+# superstring library
+# -----------------------------------------------------------------------------
+
 add_library(superstring STATIC
     src/superstring/superstring.cc
 )
@@ -38,11 +42,16 @@ target_include_directories(superstring PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
-add_executable(superstring-ut
+# -----------------------------------------------------------------------------
+# Unit test executable
+# -----------------------------------------------------------------------------
+
+add_executable(util-test
+    tests/bitops_ut.cc
     tests/superstring_ut.cc
 )
 
-target_link_libraries(superstring-ut
+target_link_libraries(util-test
     gtest_main
     superstring
 )
