@@ -11,8 +11,8 @@
  *  https://github.com/jfern2011/utility
  */
 
-#ifndef FILESYS_H_
-#define FILESYS_H_
+#ifndef UTILITY_INCLUDE_FILESYS_FILESYS_H_
+#define UTILITY_INCLUDE_FILESYS_FILESYS_H_
 
 #include <cstddef>
 #include <string>
@@ -35,4 +35,4 @@ bool readlines(const std::string& filename,
 }  // namespace filesys
 }  // namespace jfern
 
-#endif  // FILESYS_H_
+#endif  // UTILITY_INCLUDE_FILESYS_FILESYS_H_

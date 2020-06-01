@@ -8,8 +8,8 @@
  *  https://github.com/jfern2011/utility
  */
 
-#ifndef BITOPS_H_
-#define BITOPS_H_
+#ifndef UTILITY_INCLUDE_BITOPS_BITOPS_H_
+#define UTILITY_INCLUDE_BITOPS_BITOPS_H_
 
 #include <cstddef>
 #include <cstdint>
@@ -185,4 +185,4 @@ constexpr void set(int bit, T* word) noexcept {
 }  // namespace bitops
 }  // namespace jfern
 
-#endif  // BITOPS_H_
+#endif  // UTILITY_INCLUDE_BITOPS_BITOPS_H_

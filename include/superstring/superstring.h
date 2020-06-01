@@ -8,8 +8,8 @@
  *  https://github.com/jfern2011/utility
  */
 
-#ifndef SUPERSTRING_H_
-#define SUPERSTRING_H_
+#ifndef UTILITY_INCLUDE_SUPERSTRING_SUPERSTRING_H_
+#define UTILITY_INCLUDE_SUPERSTRING_SUPERSTRING_H_
 
 #include <cstddef>
 #include <string>
@@ -78,4 +78,4 @@ std::string superstring::build(
 
 }  // namespace jfern
 
-#endif  // SUPERSTRING_H_
+#endif  // UTILITY_INCLUDE_SUPERSTRING_SUPERSTRING_H_
