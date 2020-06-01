@@ -8,7 +8,6 @@
 #define SUPERSTRING_H_
 
 #include <cstddef>
-#include <initializer_list>
 #include <string>
 #include <vector>
 
