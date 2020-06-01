@@ -2,6 +2,10 @@
  *  \file   bitops_ut.cc
  *  \author Jason Fernandez
  *  \date   05/30/2020
+ *
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
 #include <array>
@@ -15,24 +19,24 @@
 
 namespace {
 
-/** Find and return the LSB from a std::bitset */
+/* Find and return the LSB from a std::bitset */
 template <std::size_t N>
 int find_lsb(const std::bitset<N>& set) {
     for (std::size_t i = 0; i < set.size(); i++) {
-        if (set[i]) return int(i);
+        if (set[i]) return static_cast<int>(i);
     }
 
-    return -1; // no bits set
+    return -1;  // no bits set
 }
 
-/** Find and return the MSB from a std::bitset */
+/* Find and return the MSB from a std::bitset */
 template <std::size_t N>
 int find_msb(const std::bitset<N>& set) {
-    for (int i = int(set.size())-1; i >= 0; i--) {
+    for (int i = static_cast<int>(set.size())-1; i >= 0; i--) {
         if (set[i]) return i;
     }
 
-    return -1; // no bits set
+    return -1;  // no bits set
 }
 
 TEST(bitops, count) {
@@ -63,7 +67,7 @@ TEST(bitops, count) {
 }
 
 TEST(bitops, clear) {
-    std::array<int,3> indexes = { 0, 20, 63 };
+    std::array<int, 3> indexes = { 0, 20, 63 };
 
     std::uint64_t word = 0;
     for (int index : indexes) word |= std::uint64_t(1) << index;
@@ -80,7 +84,7 @@ TEST(bitops, clear) {
 TEST(bitops, create_mask) {
     EXPECT_EQ(jfern::bitops::create_mask<int>(), 0);
 
-    constexpr std::array<std::size_t,3> indexes = { 0, 20, 63 };
+    constexpr std::array<std::size_t, 3> indexes = { 0, 20, 63 };
 
     constexpr auto mask = jfern::bitops::create_mask<std::uint64_t,
                                                      indexes.at(0),
@@ -144,7 +148,7 @@ TEST(bitops, msb) {
 }
 
 TEST(bitops, multi_clear) {
-    constexpr std::array<std::size_t,3> indexes = { 0, 20, 63 };
+    constexpr std::array<std::size_t, 3> indexes = { 0, 20, 63 };
 
     auto build_word = [&]() {
         std::uint64_t word = 0;
@@ -152,7 +156,7 @@ TEST(bitops, multi_clear) {
         return word;
     };
 
-    ASSERT_NE(build_word(), 0); // sanity check
+    ASSERT_NE(build_word(), 0);  // sanity check
 
     std::uint64_t word = build_word();
     jfern::bitops::multi_clear(std::uint64_t(~0), &word);
@@ -198,13 +202,13 @@ TEST(bitops, get_1bits) {
     std::default_random_engine generator;
     std::uniform_int_distribution<std::uint64_t> distribution(0);
 
-    std::array<int,64> indexes;
-    std::vector<int>   indexes_v;
+    std::array<int, 64> indexes;
+    std::vector<int>    indexes_v;
 
     for (int i = 0; i < 1000; i++) {
         const std::uint64_t random64 = distribution(generator);
         const auto set = std::bitset<64>(random64);
-        
+
         const std::size_t num_set =
             jfern::bitops::get_1bits(random64, indexes.data());
         ASSERT_EQ(num_set, set.count());
@@ -225,7 +229,7 @@ TEST(bitops, get_1bits) {
 }
 
 TEST(bitops, set) {
-    const std::array<int,3> indexes = { 0, 20, 63 };
+    const std::array<int, 3> indexes = { 0, 20, 63 };
 
     std::uint64_t word = 0;
 

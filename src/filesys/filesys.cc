@@ -3,7 +3,9 @@
  *  \author Jason Fernandez
  *  \date   5/31/2020
  *
- *  https://github.com/jfern2011/util
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
 #include "filesys/filesys.h"
@@ -93,17 +95,17 @@ bool exists(const std::string& path) {
  * @return True on success, or false if the file could not be opened
  */
 bool readlines(const std::string& filename,
-               std::vector<std::string>& lines) {
-    lines.clear();
+               std::vector<std::string>* lines) {
+    lines->clear();
 
     std::ifstream infile(filename);
     if (infile.is_open()) {
         std::string line;
         while (std::getline(infile, line)) {
-            lines.push_back(line);
+            lines->push_back(line);
         }
         return true;
-    } // else cannot be opened
+    }  // else cannot be opened
 
     return false;
 }

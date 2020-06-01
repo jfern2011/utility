@@ -6,11 +6,13 @@
  *  \brief A simple filesystem API where C++17, which introduces
  *         std::filesystem, is not available
  *
- *  https://github.com/jfern2011/util
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
-#ifndef FILE_SYS_H_
-#define FILE_SYS_H_
+#ifndef FILESYS_H_
+#define FILESYS_H_
 
 #include <cstddef>
 #include <string>
@@ -22,15 +24,15 @@ namespace filesys {
 /** Sentinel to represent an out-of-range value */
 constexpr std::size_t npos = std::string::npos;
 
-bool        exists (const std::string& path);
-std::size_t fsize  (const std::string& filename);
-bool        is_dir (const std::string& path);
+bool        exists(const std::string& path);
+std::size_t fsize(const std::string& filename);
+bool        is_dir(const std::string& path);
 bool        is_file(const std::string& path);
 
 bool readlines(const std::string& filename,
-               std::vector<std::string>& lines);
+               std::vector<std::string>* lines);
 
 }  // namespace filesys
 }  // namespace jfern
 
-#endif  // FILE_SYS_H_
+#endif  // FILESYS_H_

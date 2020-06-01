@@ -2,6 +2,10 @@
  *  \file   superstring_ut.cc
  *  \author Jason Fernandez
  *  \date   05/30/2020
+ *
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
 #include <list>
@@ -15,9 +19,9 @@ namespace {
 
 TEST(superstring, ends_with) {
     const auto sstring = jfern::superstring("hello");
-    EXPECT_TRUE (sstring.ends_with("hello"));
-    EXPECT_TRUE (sstring.ends_with("ello"));
-    EXPECT_TRUE (sstring.ends_with("o"));
+    EXPECT_TRUE(sstring.ends_with("hello"));
+    EXPECT_TRUE(sstring.ends_with("ello"));
+    EXPECT_TRUE(sstring.ends_with("o"));
     EXPECT_FALSE(sstring.ends_with(""));
     EXPECT_FALSE(sstring.ends_with("ell"));
 
@@ -31,10 +35,10 @@ TEST(superstring, ends_with) {
 
 TEST(superstring, starts_with) {
     const auto sstring = jfern::superstring("hello");
-    EXPECT_TRUE (sstring.starts_with("hello"));
+    EXPECT_TRUE(sstring.starts_with("hello"));
     EXPECT_FALSE(sstring.starts_with("helloWorld"));
-    EXPECT_TRUE (sstring.starts_with("he"));
-    EXPECT_TRUE (sstring.starts_with("h"));
+    EXPECT_TRUE(sstring.starts_with("he"));
+    EXPECT_TRUE(sstring.starts_with("h"));
     EXPECT_FALSE(sstring.starts_with(""));
     EXPECT_FALSE(sstring.starts_with("ello"));
 

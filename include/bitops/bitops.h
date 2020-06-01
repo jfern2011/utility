@@ -3,7 +3,9 @@
  *  \author Jason Fernandez
  *  \date   5/30/2020
  *
- *  https://github.com/jfern2011/util
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
 #ifndef BITOPS_H_
@@ -62,7 +64,7 @@ template <typename T> constexpr T create_mask() noexcept {
  */
 template <typename T, std::size_t I, std::size_t... Is>
 constexpr T create_mask() noexcept {
-    return (T(1) << I) | create_mask<T,Is...>();
+    return (T(1) << I) | create_mask<T, Is...>();
 }
 
 /**

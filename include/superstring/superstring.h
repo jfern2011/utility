@@ -2,6 +2,10 @@
  *  \file   superstring.h
  *  \author Jason Fernandez
  *  \date   05/25/2020
+ *
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
 #ifndef SUPERSTRING_H_
@@ -18,7 +22,7 @@ namespace jfern {
  * you could do with a normal C++ string
  */
 class superstring final {
-public:
+ public:
     explicit superstring(const std::string& str);
 
     superstring(const superstring& sstring)            = default;
@@ -27,7 +31,7 @@ public:
     superstring& operator=(superstring&& sstring)      noexcept = default;
     ~superstring()                                     = default;
 
-    bool        ends_with  (const std::string& suffix) const;
+    bool        ends_with(const std::string& suffix)   const;
     bool        starts_with(const std::string& prefix) const;
 
     std::string get()      const noexcept;
@@ -45,7 +49,7 @@ public:
     static std::string build(
         const std::string& separator, InputIterator first, InputIterator last);
 
-private:
+ private:
     /** The internally managed string */
     std::string m_internal;
 };

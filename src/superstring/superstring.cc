@@ -2,6 +2,10 @@
  *  \file   superstring.cc
  *  \author Jason Fernandez
  *  \date   05/25/2020
+ *
+ *  Copyright 2020 Jason Fernandez
+ *
+ *  https://github.com/jfern2011/utility
  */
 
 #include "superstring/superstring.h"
@@ -137,7 +141,7 @@ std::string superstring::trim() const noexcept {
     std::size_t stop = m_internal.find_last_not_of(space);
 
     return
-        m_internal.substr(start,stop-start+1);
+        m_internal.substr(start, stop-start+1);
 }
 
 /**
@@ -155,7 +159,7 @@ superstring::split(const std::string& delimiter) const {
         tokens.push_back(m_internal);
     } else {
         std::size_t ind, start = 0;
-        while ((ind = m_internal.find(delimiter,start)) != std::string::npos) {
+        while ((ind = m_internal.find(delimiter, start)) != std::string::npos) {
             if (ind - start > 0)
                 tokens.push_back(
                     m_internal.substr(start, ind - start));
@@ -194,7 +198,6 @@ std::vector<std::string> superstring::split(std::size_t size) const {
     do {
         tokens.push_back(m_internal.substr(start, size));
         start += size;
-
     } while (start < m_internal.size());
 }
 
