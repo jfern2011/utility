@@ -35,6 +35,7 @@ make
 
 This project imports Google's cpplint style checker as a submodule: https://github.com/cpplint/cpplint
 
+
 ### To run the linter
 
 python utility/cpplint/cpplint.py --root=. utility/include/superstring/superstring.h \\  
