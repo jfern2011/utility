@@ -43,15 +43,29 @@ target_include_directories(superstring PUBLIC
 )
 
 # -----------------------------------------------------------------------------
+# filesys library
+# -----------------------------------------------------------------------------
+
+add_library(filesys STATIC
+    src/filesys/filesys.cc
+)
+
+target_include_directories(filesys PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/include
+)
+
+# -----------------------------------------------------------------------------
 # Unit test executable
 # -----------------------------------------------------------------------------
 
 add_executable(util-test
     tests/bitops_ut.cc
+    tests/filesys_ut.cc
     tests/superstring_ut.cc
 )
 
 target_link_libraries(util-test
+    filesys
     gtest_main
     superstring
 )
