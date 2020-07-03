@@ -199,6 +199,8 @@ std::vector<std::string> superstring::split(std::size_t size) const {
         tokens.push_back(m_internal.substr(start, size));
         start += size;
     } while (start < m_internal.size());
+
+    return tokens;
 }
 
 }  // namespace jfern
