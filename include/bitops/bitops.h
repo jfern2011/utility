@@ -72,7 +72,7 @@ constexpr T create_mask() noexcept {
  *
  * @tparam T The integral type of this bitmask
  *
- * @param[in] index  The (0 based) first bit index to set
+ * @param[in] index   The (0 based) first bit index to set
  * @param[in] indexes Additional indexes to set
  *
  * @return The desired bitmask
