@@ -95,6 +95,13 @@ TEST(bitops, create_mask) {
     for (int index : indexes) set.set(index);
 
     EXPECT_EQ(mask, set.to_ullong());
+
+    constexpr auto mask2 =
+        jfern::bitops::create_mask<std::uint64_t>(indexes.at(0),
+                                                  indexes.at(1),
+                                                  indexes.at(2));
+
+    EXPECT_EQ(mask, mask2);
 }
 
 TEST(bitops, get_bit) {

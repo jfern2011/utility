@@ -68,6 +68,21 @@ constexpr T create_mask() noexcept {
 }
 
 /**
+ * Create a bitmask with the specified bits set
+ *
+ * @tparam T The integral type of this bitmask
+ *
+ * @param[in] index  The (0 based) first bit index to set
+ * @param[in] indexes Additional indexes to set
+ *
+ * @return The desired bitmask
+ */
+template <typename T, typename... Is>
+constexpr T create_mask(std::size_t index, Is... indexes) noexcept {
+    return (T(1) << index) | create_mask<T>(indexes...);
+}
+
+/**
  * Retrieve a bitmask with only the specified bit set
  *
  * @param [in] bit The desired bit, indexed from 0
