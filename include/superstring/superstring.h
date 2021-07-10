@@ -35,15 +35,17 @@ class superstring final {
     bool        starts_with(const std::string& prefix) const;
 
     std::string get()      const noexcept;
-    std::string to_lower() const noexcept;
-    std::string to_upper() const noexcept;
+    superstring to_lower() const noexcept;
+    superstring to_upper() const noexcept;
 
-    std::string ltrim()    const noexcept;
-    std::string rtrim()    const noexcept;
-    std::string trim()     const noexcept;
+    superstring ltrim()    const noexcept;
+    superstring rtrim()    const noexcept;
+    superstring trim()     const noexcept;
 
     std::vector<std::string> split(const std::string& delimiter = " ") const;
     std::vector<std::string> split(std::size_t size)                   const;
+
+    operator std::string() const;
 
     template <class InputIterator>
     static std::string build(

@@ -57,9 +57,9 @@ TEST(superstring, to_lower) {
 
     const std::string hello = "hello";
 
-    EXPECT_EQ(all_upper.to_lower(), hello);
-    EXPECT_EQ(all_lower.to_lower(), hello);
-    EXPECT_EQ(mixed.to_lower(),     hello);
+    EXPECT_EQ(all_upper.to_lower().get(), hello);
+    EXPECT_EQ(all_lower.to_lower().get(), hello);
+    EXPECT_EQ(mixed.to_lower().get(),     hello);
 }
 
 TEST(superstring, to_upper) {
@@ -69,9 +69,9 @@ TEST(superstring, to_upper) {
 
     const std::string hello = "HELLO";
 
-    EXPECT_EQ(all_upper.to_upper(), hello);
-    EXPECT_EQ(all_lower.to_upper(), hello);
-    EXPECT_EQ(mixed.to_upper(),     hello);
+    EXPECT_EQ(all_upper.to_upper().get(), hello);
+    EXPECT_EQ(all_lower.to_upper().get(), hello);
+    EXPECT_EQ(mixed.to_upper().get(),     hello);
 }
 
 TEST(superstring, ltrim) {
@@ -80,8 +80,8 @@ TEST(superstring, ltrim) {
 
     const std::string hello = "hello";
 
-    EXPECT_EQ(str1.ltrim(), hello);
-    EXPECT_EQ(str2.ltrim(), hello);
+    EXPECT_EQ(str1.ltrim().get(), hello);
+    EXPECT_EQ(str2.ltrim().get(), hello);
 }
 
 TEST(superstring, rtrim) {
@@ -90,8 +90,8 @@ TEST(superstring, rtrim) {
 
     const std::string hello = "hello";
 
-    EXPECT_EQ(str1.rtrim(), hello);
-    EXPECT_EQ(str2.rtrim(), hello);
+    EXPECT_EQ(str1.rtrim().get(), hello);
+    EXPECT_EQ(str2.rtrim().get(), hello);
 }
 
 TEST(superstring, trim) {
@@ -100,8 +100,8 @@ TEST(superstring, trim) {
 
     const std::string hello = "hello";
 
-    EXPECT_EQ(str1.trim(), hello);
-    EXPECT_EQ(str2.trim(), hello);
+    EXPECT_EQ(str1.trim().get(), hello);
+    EXPECT_EQ(str2.trim().get(), hello);
 }
 
 TEST(superstring, split) {
@@ -217,6 +217,16 @@ TEST(superstring, split) {
     tokens = str9.split(10);
     ASSERT_EQ(tokens.size(), 1u);
     EXPECT_EQ(tokens[0], "hello");
+}
+
+TEST(superstring, type_conversion) {
+    const std::string input = "  HeY tHeRe BuDdY ";
+    const std::string expected = "hey there buddy";
+
+    jfern::superstring greeting(input);
+
+    const std::string result = greeting.rtrim().ltrim().to_lower();
+    EXPECT_EQ(result, expected);
 }
 
 TEST(superstring, build) {

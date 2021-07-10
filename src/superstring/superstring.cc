@@ -65,70 +65,70 @@ std::string superstring::get() const noexcept {
 /**
  * Convert the wrapped (internal) std::string to lower case
  *
- * @return The wrapped string in lower case
+ * @return A copy of this object in lower case
  */
-std::string superstring::to_lower() const noexcept {
+superstring superstring::to_lower() const noexcept {
     std::string internal = m_internal;
     std::transform(internal.begin(), internal.end(), internal.begin(),
         [] (unsigned char c) { return std::tolower(c); });
-    return internal;
+    return superstring(internal);
 }
 
 /**
  * Convert the wrapped (internal) std::string to upper case
  *
- * @return The wrapped string in upper case
+ * @return A copy of this object in upper case
  */
-std::string superstring::to_upper() const noexcept {
+superstring superstring::to_upper() const noexcept {
     std::string internal = m_internal;
     std::transform(internal.begin(), internal.end(), internal.begin(),
         [] (unsigned char c) { return std::toupper(c); });
-    return internal;
+    return superstring(internal);
 }
 
 /**
  * Remove leading whitespace from a string. This includes the character
  * set " \t\n\v\f\r"
  *
- * @return The wrapped string with leading whitespace removed
+ * @return A copy of this object with leading whitespace removed
  */
-std::string superstring::ltrim() const noexcept {
+superstring superstring::ltrim() const noexcept {
     const std::string space = "\t\n\v\f\r ";
 
     const std::size_t start =
         m_internal.find_first_not_of(space);
 
-    if (start == std::string::npos) return "";
+    if (start == std::string::npos) return superstring("");
 
-    return m_internal.substr(start);
+    return superstring(m_internal.substr(start));
 }
 
 /**
  * Remove trailing whitespace from a string. This includes the character
  * set " \t\n\v\f\r"
  *
- * @return The wrapped string with trailing whitespace removed
+ * @return A copy of this object with trailing whitespace removed
  */
-std::string superstring::rtrim() const noexcept {
+superstring superstring::rtrim() const noexcept {
     const std::string space = "\t\n\v\f\r ";
 
     const std::size_t stop =
         m_internal.find_last_not_of(space);
 
-    if (stop == std::string::npos) return "";
+    if (stop == std::string::npos) return superstring("");
 
-    return m_internal.substr(0, stop+1);
+    return superstring(m_internal.substr(0, stop+1));
 }
 
 /**
  * Remove leading and trailing whitespace from a string. This includes the
  * character set " \t\n\v\f\r"
  *
- * @return The wrapped string with all leading and trailing whitespace
+ * @return A copy of this object with all leading and trailing whitespace
  *         removed
  */
-std::string superstring::trim() const noexcept {
-    if (m_internal.empty()) return m_internal;
+superstring superstring::trim() const noexcept {
+    if (m_internal.empty()) return superstring(m_internal);
 
     const std::string space = "\t\n\v\f\r ";
 
@@ -136,12 +136,11 @@ std::string superstring::trim() const noexcept {
         m_internal.find_first_not_of(space);
 
     if (start == std::string::npos)
-        return "";
+        return superstring("");
 
     std::size_t stop = m_internal.find_last_not_of(space);
 
-    return
-        m_internal.substr(start, stop-start+1);
+    return superstring(m_internal.substr(start, stop-start+1));
 }
 
 /**
@@ -201,6 +200,16 @@ std::vector<std::string> superstring::split(std::size_t size) const {
     } while (start < m_internal.size());
 
     return tokens;
+}
+
+/**
+ * Type conversion to a std::string. Allows a \ref superstring to be used
+ * in contexts that require a std::string
+ * 
+ * @return The wrapped string
+ */
+superstring::operator std::string() const {
+    return m_internal;
 }
 
 }  // namespace jfern
